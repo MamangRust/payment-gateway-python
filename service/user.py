@@ -23,7 +23,7 @@ class UserService:
         user = self.user_repo.get_user_by_id(user_id)
         if user:
             user.noc_transfer = new_noc_transfer
-            updated_user = self.user_repo.update_user(user)
+            updated_user = self.user_repo.update_user(user_id=user_id, new_noc_transfer=new_noc_transfer)
             return updated_user
         return None
 

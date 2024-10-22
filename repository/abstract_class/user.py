@@ -54,7 +54,7 @@ class UserAbstractRepository(ABC):
         pass
 
     @abstractmethod
-    def update_user(self, user) -> User:
+    def update_user(self, user_id, new_noc_transfer) -> User:
         """
         Update user information.
 

@@ -26,88 +26,107 @@ transfer_service = TransferService(repository.transfer_repository, repository.sa
 
 
 def users_all_service():
-    all_users = user_service.get_all_users()
-    create_user_by_email = user_service.create_user("JmD9r@example.com", "password", "12333")
-    create_user = user_service.create_user("yanto@example.com", "password", "12333")
-    user_by_email = user_service.get_user_by_email("yanto@example.com")
-    user_by_id = user_service.get_user_by_id(user_by_email.user_id)
-    updated_user = user_service.update_user(user_by_email.user_id, new_noc_transfer=12333)
-    # delete_user = user_service.delete_user(user_by_email.user_id)
+    try:
+
+        create_user_by_email = user_service.create_user("JmD9r@example.com", "password", "12333")
+        create_user = user_service.create_user("yanto@example.com", "password", "12333")
+        user_by_email = user_service.get_user_by_email("yanto@example.com")
+        user_by_id = user_service.get_user_by_id(user_by_email.user_id)
+        updated_user = user_service.update_user(user_by_email.user_id, new_noc_transfer=12333)
+        all_users = user_service.get_all_users()
+        # delete_user = user_service.delete_user(user_by_email.user_id)
 
 
-    print("New User:", create_user)
-    print("User by Email:", user_by_email)
-    print("User by ID:", user_by_id)
-    print("Updated User:", updated_user)
-    print("All Users:", str(all_users))
-    # print("Delete User: " + str(delete_user))
+        print("New User:", create_user)
+        print("User by Email:", user_by_email)
+        print("User by ID:", user_by_id)
+        print("Updated User:", updated_user)
+        print("All Users:", all_users)
+        # print("Delete User: " + str(delete_user))
 
-    return user_by_email.user_id
+        return user_by_email.user_id
+    except ValueError as e:
+        print(e)
 
 
 def saldo_all_service(user_id: int):
-    all_saldo = saldo_service.get_all_saldos()
-    get_saldo_userId  = saldo_service.get_saldo_by_user_id(user_id)
-    # create_saldo_1 = saldo_service.create_saldo(1, 100000, withdraw_amount=0, withdraw_time=None)
-    create_saldo = saldo_service.create_saldo(user_id, 100000, withdraw_amount=0, withdraw_time=None)
-    update_saldo = saldo_service.update_saldo(1, 200000)
-    # delete_saldo = saldo_service.delete_saldo(user_id)
+
+    try:
+
+        all_saldo = saldo_service.get_all_saldos()
+        get_saldo_userId  = saldo_service.get_saldo_by_user_id(user_id)
+        # create_saldo_1 = saldo_service.create_saldo(1, 100000, withdraw_amount=0, withdraw_time=None)
+        create_saldo = saldo_service.create_saldo(user_id, 100000, withdraw_amount=0, withdraw_time=None)
+        update_saldo = saldo_service.update_saldo(1, 10000000000)
+        # delete_saldo = saldo_service.delete_saldo(user_id)
 
 
-    print("All Saldo:", all_saldo)
-    print("Get Saldo User ID:", get_saldo_userId)
-    print("Create Saldo:", create_saldo)
-    print("Update Saldo:", update_saldo)
-    # print("Delete Saldo:", delete_saldo)
+        print("All Saldo:", all_saldo)
+        print("Get Saldo User ID:", get_saldo_userId)
+        print("Create Saldo:", create_saldo)
+        print("Update Saldo:", update_saldo)
+        # print("Delete Saldo:", delete_saldo)
+    except ValueError as e:
+        print(e)
 
 
 def topup_all_service(user_id: int):
-    topup_amount = 100000
+    topup_amount = 50000  # Adjusted to be within the limit
     topup_method = "BCA"
-    topup = topup_service.create_topup(user_id, 100001,topup_amount, topup_method)
-    topup_by_id = topup_service.get_topup_id(topup_id=topup.topup_id)
-    topup_by_userId = topup_service.get_topup_by_user_id(user_id)
-    all_topup = topup_service.get_all_topups()
-    update_topup = topup_service.update_topup(topup_id=topup.topup_id, new_topup_amount=200000, new_topup_method="OVO")
-    # delete_topup = topup_service.delete_topup(topup.topup_id)
+    
+    try:
+        topup = topup_service.create_topup(user_id, 100001, topup_amount, topup_method)
+        topup_by_id = topup_service.get_topup_id(topup_id=topup.topup_id)
+        topup_by_userId = topup_service.get_topup_by_user_id(user_id)
+        all_topup = topup_service.get_all_topups()
+        update_topup = topup_service.update_topup(topup_id=topup.topup_id, new_topup_amount=20000, new_topup_method="OVO")  # Ensure this is also within the limit
+        
+        print("Create topup: ", topup)
+        print("Topup by ID: ", topup_by_id)
+        print("Topup by User ID: ", topup_by_userId)
+        print("All Topups: ", all_topup)
+        print("Update Topup: ", update_topup)
 
-    print("create topup: ", topup)
-    print("topup by id: ", topup_by_id)
-    print("topup by user id: ", topup_by_userId)
-    print("all topup: ", all_topup)
-    print("update topup: ", update_topup)
-    # print("delete topup: ", delete_topup)
+    except ValueError as e:
+        print(e)
 
 
 def transfer_all_service(user_id: int):
-    create_transfer = transfer_service.create_transfer(1, 2, 100)
-    get_all_transfer = transfer_service.get_all_transfers()
-    get_transfer_by_userId = transfer_service.get_transfer_by_user_id(user_id)
-    update_transfer = transfer_service.update_transfer(1, 200)
-    delete_transfer = transfer_service.delete_transfer(1)
+    try:
 
-    print("create transfer: ", create_transfer)
-    print("get all transfer: ", get_all_transfer)
-    print("get transfer by user id: ", get_transfer_by_userId)
-    print("update transfer: ", update_transfer)
-    # print("delete transfer: ", delete_transfer)
+        create_transfer = transfer_service.create_transfer(1, 2, 100)
+        get_all_transfer = transfer_service.get_all_transfers()
+        get_transfer_by_userId = transfer_service.get_transfer_by_user_id(user_id)
+        update_transfer = transfer_service.update_transfer(1, 200)
+        delete_transfer = transfer_service.delete_transfer(1)
+
+        print("create transfer: ", create_transfer)
+        print("get all transfer: ", get_all_transfer)
+        print("get transfer by user id: ", get_transfer_by_userId)
+        print("update transfer: ", update_transfer)
+        # print("delete transfer: ", delete_transfer)
+    except ValueError as e:
+        print(e)
 
 
 def withdraw_all_service(user_id: int):
-    withdraw_amount = 100000
-    withdraw = withdraw_service.create_withdraw(user_id, withdraw_amount)
-    withdraw_by_id = withdraw_service.get_withdraw_by_id(withdraw_id=withdraw.withdraw_id)
-    withdraw_by_userId = withdraw_service.get_withdraw_by_user_id(user_id)
-    all_withdraw = withdraw_service.get_all_withdraws()
-    update_withdraw = withdraw_service.update_withdraw(withdraw_id=withdraw.withdraw_id, new_withdraw_amount=100)
-    # delete_withdraw = withdraw_service.delete_withdraw(withdraw.withdraw_id)
+    try:
 
-    print("create withdraw: ", withdraw)
-    print("withdraw by id: ", withdraw_by_id)
-    print("withdraw by user id: ", withdraw_by_userId)
-    print("all withdraw: ", all_withdraw)
-    print("update withdraw: ", update_withdraw)
-    # print("delete withdraw: ", delete_withdraw)
+        withdraw_amount = 100000
+        withdraw = withdraw_service.create_withdraw(user_id, withdraw_amount)
+        withdraw_by_id = withdraw_service.get_withdraw_by_id(withdraw_id=withdraw.withdraw_id)
+        withdraw_by_userId = withdraw_service.get_withdraw_by_user_id(user_id)
+        all_withdraw = withdraw_service.get_all_withdraws()
+        update_withdraw = withdraw_service.update_withdraw(withdraw_id=withdraw.withdraw_id, new_withdraw_amount=100)
+        # delete_withdraw = withdraw_service.delete_withdraw(withdraw.withdraw_id)
+
+        print("create withdraw: ", withdraw)
+        print("withdraw by id: ", withdraw_by_id)
+        print("withdraw by user id: ", withdraw_by_userId)
+        print("all withdraw: ", all_withdraw)
+        print("update withdraw: ", update_withdraw)
+    except ValueError as e:
+        print(e)
 
 users_all_service()
 saldo_all_service(user_id=2)

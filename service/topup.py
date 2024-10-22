@@ -40,7 +40,7 @@ class TopupService:
         if new_topup_amount > 50000:
             raise ValueError("New topup amount exceeds the specified limit (50000)")
 
-        topup = self.topup_repo.get_topup_by_id(topup_id=topup_id)
+        topup = self.topup_repo.get_topup_id(topup_id=topup_id)
 
         if topup:
             # Store the old topup amount and method for saldo adjustment
